@@ -7,16 +7,24 @@ import java.security.NoSuchAlgorithmException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A class exposing methods to generate hashes with certain hashing algorithms.
+ */
 public class HashUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(HashUtils.class);
 	
+	/**
+	 * Returns the hash of a {@link String}
+	 * 
+	 * @param input {@link String} input to be hashed
+	 * @return {@link String} with hex representation of the hash
+	 */
 	public static String md5(String input) {
 		try {
 			final byte[] inputBytes = input.getBytes("UTF-8");
 			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
 			byte[] hashBytes = messageDigest.digest(inputBytes);
-//			String hashString = Base64.encodeBase64String(hashBytes);
 			StringBuffer sb = new StringBuffer();
 			for (byte b : hashBytes) {
 				sb.append(String.format("%02x", b & 0xff));

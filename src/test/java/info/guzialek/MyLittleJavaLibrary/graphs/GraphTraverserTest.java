@@ -13,6 +13,25 @@ public class GraphTraverserTest {
 
     @Test
     public void testBfs() {
+        List<Node> graph = buildTestGraph();
+        
+        GraphTraverser graphTraverser = new GraphTraverser(graph);
+        List<Node> bfsOrder = graphTraverser.bfs();
+        List<Integer> indexes = bfsOrder.stream().map(x -> x.getIndex()).collect(Collectors.toList());
+        assertEquals(new ArrayList<>(Arrays.asList(1, 2, 5, 6, 3, 4)), indexes);
+    }
+    
+    @Test
+    public void testDfs() {
+        List<Node> graph = buildTestGraph();
+        
+        GraphTraverser graphTraverser = new GraphTraverser(graph);
+        List<Node> dfsOrder = graphTraverser.dfs();
+        List<Integer> indexes = dfsOrder.stream().map(x -> x.getIndex()).collect(Collectors.toList());
+        assertEquals(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6)), indexes);
+    }
+
+    private List<Node> buildTestGraph() {
         List<Node> graph = new ArrayList<>();
         
         Node node1 = new Node(1);
@@ -48,11 +67,7 @@ public class GraphTraverserTest {
         graph.add(node4);
         graph.add(node5);
         graph.add(node6);
-        
-        GraphTraverser graphTraverser = new GraphTraverser(graph);
-        List<Node> bfsOrder = graphTraverser.bfs();
-        List<Integer> indexes = bfsOrder.stream().map(x -> x.getIndex()).collect(Collectors.toList());
-        assertEquals(new ArrayList<>(Arrays.asList(1, 2, 5, 6, 3, 4)), indexes);
+        return graph;
     }
 
 }

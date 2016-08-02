@@ -51,11 +51,31 @@ public class GraphTraverser {
         return bfsOrder;
     }
     
+    private List<Node> dfs(Node startingNode) {
+        List<Node> dfsOrder = new ArrayList<>();
+        
+        discovered.put(startingNode, true);
+        dfsOrder.add(startingNode);
+        
+        for (Node adjacentNode : startingNode.getAdjacentNodes()) {
+            if (!discovered.get(adjacentNode))  {
+                List<Node> adjacentDfsOrder = dfs(adjacentNode);
+                dfsOrder.addAll(adjacentDfsOrder);
+                discovered.put(adjacentNode, true);
+            }
+        }
+        
+        return dfsOrder;
+    }
+    
     public List<Node> bfs() {
         clearNodeStatuses();
         return bfs(graph.get(0));
     }
     
+    public List<Node> dfs() {
+        clearNodeStatuses();
+        return dfs(graph.get(0));
     }
 
 }
